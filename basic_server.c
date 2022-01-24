@@ -12,12 +12,14 @@ int main() {
     char reverse[1000];
     while(read(from_client, line, sizeof(line)) != 0){
       int i = 0;
-      for (i = strlen(line) - 1; i >= 0; i--){
-			if (*(line + i) != 10){
-				strncat(reverse, line + i, 1);
-			}
-		}
-      write(to_client, reverse, sizeof(line));
+      while(line[i]) {
+        if(line[i] >= 'a' && line[i] <= 'z') {
+          line[i] = line[i] - 'a' + 'A';
+        }
+        i++;
+      }
+
+      write(to_client, line, sizeof(line));
     }
   }
 }
